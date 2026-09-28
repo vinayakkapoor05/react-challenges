@@ -5,7 +5,7 @@ interface CourseProps {
     title: string;
   } 
 
-  const Course = ({term, number, meets, title }: CourseProps) => (
+  const Course = ({term, number, title }: CourseProps) => (
     <div>{term} CS {number}: {title}</div>
   );
 
