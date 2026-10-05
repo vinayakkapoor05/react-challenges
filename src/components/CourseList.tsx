@@ -11,9 +11,9 @@ interface CourseListProps {
         };
     }   
     const CourseList = ({ courses }: CourseListProps) => (
-        <ul>
+        <ul className="grid w-full grid-cols-[repeat(auto-fit,_minmax(200px,_1fr))] gap-4 px-4">
             {Object.entries(courses).map(([key, course]) => (
-            <li key={key}>
+            <li key={key} className="h-full"> 
                 <Course
                     term={course.term}
                     number={course.number}
