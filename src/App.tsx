@@ -1,5 +1,5 @@
 import './App.css';
-import CourseList from './components/CourseList';
+import TermPage from './components/TermPage';
 import Title from './components/Title';
 import { useJsonQuery } from './utilities/fetch';  
 
@@ -31,7 +31,7 @@ import { useJsonQuery } from './utilities/fetch';
       return (
        <div>
         <Title title={schedules.title} />
-        <CourseList courses={schedules.courses} />
+        <TermPage courses={schedules.courses} />
       </div>
       )
     };
