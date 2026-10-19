@@ -63,7 +63,7 @@ const TermPage = ({ courses }: TermPageProps) => {
                         <ul>
                             {selectedCourses.map((course) => (
                                 <li key={course} className="text-blue-500 mb-2">
-                                    {"CS " + courses[course].number + ": " + courses[course].title}
+                                    {courses[course].term + " CS " + courses[course].number + ": " + courses[course].title}
                                     <div className="text-gray-600 text-sm" >
                                     {courses[course].meets}
                                 </div>
