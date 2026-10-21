@@ -3,6 +3,7 @@ import TermSelector from "./TermSelector";
 import CourseList from "./CourseList";
 import Modal from "./Modal";
 
+import {checkTimeConflict} from "../utilities/time-conflicts";
 
 const toggleList = <T,>(x: T, lst: T[]): T[] => (
   lst.includes(x) ? lst.filter(y => y !== x) : [...lst, x]
@@ -26,7 +27,12 @@ const TermPage = ({ courses }: TermPageProps) => {
     const [modalOpen, setModalOpen] = useState(false);
 
     const toggleSelected = (key: string) => {
-        setSelectedCourse(selectedCourses => toggleList(key, selectedCourses));
+        setSelectedCourse(selectedCourses => {        
+            if (selectedCourses.includes(key)) {
+            return toggleList(key, selectedCourses);
+        }
+        const conflictingCourses =  selectedCourses.some(selectedKey => checkTimeConflict(courses[selectedKey], courses[key]));
+        return conflictingCourses ? selectedCourses : toggleList(key, selectedCourses);});
     };
 
     return (
