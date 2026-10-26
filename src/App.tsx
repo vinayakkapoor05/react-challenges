@@ -2,11 +2,14 @@ import './App.css';
 import TermPage from './components/TermPage';
 import Title from './components/Title';
 import { useJsonQuery } from './utilities/fetch';  
+import { useParams } from '@tanstack/react-router';
+import CourseEditor from './components/CourseEditor';
 
   const App = () => 
     {
       const [json, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses-firestore.php');
-      
+      const { id } = useParams({ strict: false });
+
       if (error) return <h1>Error loading course data: {`${error}`}</h1>;
       if (isLoading) return <h1>Loading course data...</h1>;
       if (!json) return <h1>No course data found</h1>;
@@ -28,6 +31,12 @@ import { useJsonQuery } from './utilities/fetch';
       }
 
       const schedules = courseData.schedules["CS-2018-2019"];
+
+      if (id) {
+        const course = schedules.courses[id];
+        if (!course) return <p>oops no course found</p>;
+        return <CourseEditor course={course} />;
+      }
       return (
        <div>
         <Title title={schedules.title} />

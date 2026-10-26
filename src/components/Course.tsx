@@ -1,5 +1,8 @@
+import { Link } from '@tanstack/react-router';
+import { Pencil } from 'lucide-react';
 
 interface CourseProps {
+  id: string;
   term: string;
   number: string;
   meets: string;
@@ -9,17 +12,19 @@ interface CourseProps {
 }
 
 const Course = ({
-  term, number, title, meets, selected, onClick
+  id, term, number, title, meets, selected, onClick
 }: CourseProps) => (
-  <button
-    type="button"
-    onClick={onClick}
-    aria-pressed={selected}
-    className={`flex flex-col h-full w-full p-5 rounded-xl border-2
-      bg-white text-left cursor-pointer ${
-      selected ? "border-blue-500" : "border-gray-200"
-    }`}
-  >
+<div
+  className={`flex flex-col h-full w-full p-5 rounded-xl border-2 bg-white ${
+    selected ? "border-blue-500" : "border-gray-200"
+  }`}
+>
+    <button
+  type="button"
+  onClick={onClick}
+  aria-pressed={selected}
+  className="flex flex-col flex-grow w-full text-left cursor-pointer"
+>
     <div className="flex items-center justify-between w-full mb-3">
       <div className="text-lg font-bold text-gray-800">
         {term} CS {number}
@@ -38,10 +43,24 @@ const Course = ({
       {title}
     </div>
 
-    <div className="mt-5 pt-3 border-t border-gray-200 w-full text-sm text-gray-500">
-      {meets}
-    </div>
+   <div className="flex items-center justify-between mt-5 pt-3 border-t border-gray-200 w-full">
+  <span className="text-sm text-gray-500">
+    {meets}
+  </span>
+
+  <Link
+    to="/course/edit/$id"
+    params={{ id }}
+    aria-label={`Edit CS ${number}`}
+    title="Edit course"
+    className="ml-2 rounded-lg p-2 text-gray-400"
+  >
+    <Pencil size={18} />
+  </Link>
+</div>
   </button>
+   
+  </div>
 );
 
 export default Course;

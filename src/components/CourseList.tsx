@@ -24,6 +24,7 @@ interface CourseListProps {
                 return (
             <li key={key} className={'h-full ' + (conflictingCourses ? 'opacity-50' : '')}> 
                 <Course
+                    id={key}
                     term={course.term}
                     number={course.number}
                     meets={course.meets}
