@@ -60,7 +60,7 @@ return (
           type="text"
           {...register('term')}
           className={`w-full rounded-lg border-2 px-4 py-3
-                      text-gray-800 ${errors.title ? 'border-red-500' : 'border-gray-200'}`}
+                      text-gray-800 ${errors.term ? 'border-red-500' : 'border-gray-200'}`}
         />
         {errors.term && (
           <p className="text-red-500 text-sm mt-1">{errors.term.message}</p>
@@ -78,7 +78,7 @@ return (
           type="text"
           {...register('number')}
           className={`w-full rounded-lg border-2 px-4 py-3
-                      text-gray-800 ${errors.title ? 'border-red-500' : 'border-gray-200'}`}
+                      text-gray-800 ${errors.number ? 'border-red-500' : 'border-gray-200'}`}
 
         />
         {errors.number && (
