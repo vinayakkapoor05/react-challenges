@@ -1,36 +1,35 @@
 import './App.css';
 import TermPage from './components/TermPage';
 import Title from './components/Title';
-import { useJsonQuery } from './utilities/fetch';  
+import { useDataQuery } from './utilities/firebase';
 import { useParams } from '@tanstack/react-router';
 import CourseEditor from './components/CourseEditor';
 
+
+interface Course {
+  term: string;
+  number: string;
+  meets: string;
+  title: string;
+}
+
+interface Schedule {
+  title: string;
+  courses: {
+    [key: string]: Course;
+  };
+}
+
   const App = () => 
     {
-      const [json, isLoading, error] = useJsonQuery('https://courses.cs.northwestern.edu/394/guides/data/cs-courses-firestore.php');
+      const [data, isLoading, error] = useDataQuery('courses/CS-2018-2019');
       const { id } = useParams({ strict: false });
 
       if (error) return <h1>Error loading course data: {`${error}`}</h1>;
       if (isLoading) return <h1>Loading course data...</h1>;
-      if (!json) return <h1>No course data found</h1>;
+      if (!data) return <h1>No course data found</h1>;
 
-      const courseData = json as {
-        schedules: {
-        "CS-2018-2019": {
-          title: string;
-          courses: {
-            [key: string]: {
-              term: string;
-              number: string;
-              meets: string;
-              title: string;
-            };
-          };
-          };
-        };
-      }
-
-      const schedules = courseData.schedules["CS-2018-2019"];
+      const schedules = data as Schedule;
 
       if (id) {
         const course = schedules.courses[id];
