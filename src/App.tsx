@@ -34,7 +34,7 @@ interface Schedule {
       if (id) {
         const course = schedules.courses[id];
         if (!course) return <p>oops no course found</p>;
-        return <CourseEditor course={course} />;
+        return <CourseEditor course={course} courseId={id} />;
       }
       return (
        <div>

@@ -1,24 +1,37 @@
-import { Link } from '@tanstack/react-router';
-import { useForm } from 'react-hook-form';
+import { Link, useNavigate} from '@tanstack/react-router';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import {courseResolver, type Course } from '../types/courses';
+import { updateDoc, doc } from 'firebase/firestore';
+import { firestore } from '../utilities/firebase';
+
 
 interface CourseEditorProps {
     course: Course;
+    courseId: string;
 }
 
-const CourseEditor = ({course}: CourseEditorProps ) => {
+
+const CourseEditor = ({course, courseId}: CourseEditorProps ) => {
+  const navigate = useNavigate();
+
     const {
       register,
       handleSubmit,
-      formState: { errors },
+      formState: { errors, isValid, isDirty, isSubmitting },
     } = useForm<Course>({
       resolver: courseResolver,
       defaultValues: course,
       mode: 'onChange',
     });
-    const onSubmit = (_data: Course) => {
-    
-    }
+      const onSubmit : SubmitHandler<Course> = async (data) => {
+        if (!isValid || !isDirty || isSubmitting) { 
+          return;
+        }
+        await updateDoc(doc(firestore, 'courses', 'CS-2018-2019'), {
+          [`courses.${courseId}`]: data,
+        });
+        await navigate({ to: '/' });
+      };
 
 return (
   <div className="max-w-xl mx-auto mt-10 px-4">
@@ -114,7 +127,17 @@ return (
         >
           Cancel
         </Link>
+        <button
+          type="submit"
+          disabled={!isValid || !isDirty || isSubmitting}
+          className={`ml-4 rounded-lg px-5 py-2 font-semibold text-white
+                      ${!isValid || !isDirty || isSubmitting ? 'bg-gray-400' : 'bg-blue-500'}
+                      transition-colors`}
+        >
+          Save Changes
+        </button>
       </div>
+    
     </form>
   </div>
 )}  

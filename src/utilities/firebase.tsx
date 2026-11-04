@@ -14,7 +14,7 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
-const firestore = getFirestore(firebase);
+export const firestore = getFirestore(firebase);
 
 export const useDataQuery = (path: string): [unknown, boolean, Error | undefined] => {
   const [data, setData] = useState<unknown>();
