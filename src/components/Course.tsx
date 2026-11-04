@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { Pencil } from 'lucide-react';
+import { useAuthState } from '../utilities/firebase';
 
 interface CourseProps {
   id: string;
@@ -13,7 +14,9 @@ interface CourseProps {
 
 const Course = ({
   id, term, number, title, meets, selected, onClick
-}: CourseProps) => (
+}: CourseProps) => {
+  const { isAuthenticated } = useAuthState();
+  return (
 <div
   className={`flex flex-col h-full w-full p-5 rounded-xl border-2 bg-white ${
     selected ? "border-blue-500" : "border-gray-200"
@@ -45,9 +48,9 @@ const Course = ({
 
    <div className="flex items-center justify-between mt-5 pt-3 border-t border-gray-200 w-full">
   <span className="text-sm text-gray-500">
-    {meets}
+   {meets}
   </span>
-
+{isAuthenticated && (
   <Link
     to="/course/edit/$id"
     params={{ id }}
@@ -57,10 +60,10 @@ const Course = ({
   >
     <Pencil size={18} />
   </Link>
+)}
 </div>
   </button>
-   
   </div>
-);
-
+  );
+};
 export default Course;

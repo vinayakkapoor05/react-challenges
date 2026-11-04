@@ -4,6 +4,7 @@ import Title from './components/Title';
 import { useDataQuery } from './utilities/firebase';
 import { useParams } from '@tanstack/react-router';
 import CourseEditor from './components/CourseEditor';
+import { Banner } from './components/Banner';
 
 
 interface Course {
@@ -24,6 +25,7 @@ interface Schedule {
     {
       const [data, isLoading, error] = useDataQuery('courses/CS-2018-2019');
       const { id } = useParams({ strict: false });
+      // const {isAuthenticated} = useAuthState();
 
       if (error) return <h1>Error loading course data: {`${error}`}</h1>;
       if (isLoading) return <h1>Loading course data...</h1>;
@@ -38,6 +40,7 @@ interface Schedule {
       }
       return (
        <div>
+        <Banner />
         <Title title={schedules.title} />
         <TermPage courses={schedules.courses} />
       </div>
