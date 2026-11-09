@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router';
 import { Pencil } from 'lucide-react';
-import { useAuthState } from '../utilities/firebase';
+import { useProfile } from '../utilities/profile';
+
 
 interface CourseProps {
   id: string;
@@ -15,7 +16,8 @@ interface CourseProps {
 const Course = ({
   id, term, number, title, meets, selected, onClick
 }: CourseProps) => {
-  const { isAuthenticated } = useAuthState();
+  const[profile] = useProfile();
+
   return (
 <div
   className={`flex flex-col h-full w-full p-5 rounded-xl border-2 bg-white ${
@@ -50,7 +52,7 @@ const Course = ({
   <span className="text-sm text-gray-500">
    {meets}
   </span>
-{isAuthenticated && (
+{profile.isAdmin && (
   <Link
     to="/course/edit/$id"
     params={{ id }}
