@@ -42,9 +42,7 @@ const TermPage = ({ courses }: TermPageProps) => {
 , [user?.uid, isAuthenticated]);
 
 
-  const toggleSelected = async (key: string) => {
-  if (!user || !isAuthenticated) return;
-
+const toggleSelected = async (key: string) => {
   const isSelected = selectedCourses.includes(key);
 
   if (!isSelected) {
@@ -56,13 +54,20 @@ const TermPage = ({ courses }: TermPageProps) => {
     if (conflictingCourses) return;
   }
 
-  try {
-    await saveSelectedCourses(user.uid, key, !isSelected);
-  } catch (error) {
-    console.error("failed to save courses: ", error);
+  setSelectedCourse(current =>
+    current.includes(key)
+      ? current.filter(id => id !== key)
+      : [...current, key]
+  );
+
+  if (user && isAuthenticated) {
+    try {
+      await saveSelectedCourses(user.uid, key, !isSelected);
+    } catch (error) {
+      console.error("failed to save courses:", error);
+    }
   }
 };
-
     return (
         <div>
             <div className="flex justify-between items-center">
