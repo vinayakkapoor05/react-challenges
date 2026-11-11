@@ -12,10 +12,6 @@ import {
 
 import {checkTimeConflict} from "../utilities/time-conflicts";
 
-const toggleList = <T,>(x: T, lst: T[]): T[] => (
-  lst.includes(x) ? lst.filter(y => y !== x) : [...lst, x]
-);
-
 
 interface TermPageProps {
     courses: {
