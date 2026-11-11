@@ -3,6 +3,13 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, onSnapshot } from 'firebase/firestore';
 import { flushSync } from 'react-dom'
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, type NextOrObserver, type User} from 'firebase/auth';
+import {setDoc, arrayUnion, arrayRemove} from 'firebase/firestore';
+
+export const saveSelectedCourses = async (userId: string,courseId: string, selected: boolean) => {
+  await setDoc(doc(firestore, `coursePlans`, userId), {
+    selectedCourses: selected ? arrayUnion(courseId) : arrayRemove(courseId)
+  }, { merge: true });
+}
 
 
 const firebaseConfig = {

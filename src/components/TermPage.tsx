@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import TermSelector from "./TermSelector";
 import CourseList from "./CourseList";
 import Modal from "./Modal";
+import { doc, onSnapshot } from "firebase/firestore";
+import {
+  firestore,
+  useAuthState,
+  saveSelectedCourses
+} from "../utilities/firebase";
+
 
 import {checkTimeConflict} from "../utilities/time-conflicts";
 
@@ -25,15 +32,40 @@ const TermPage = ({ courses }: TermPageProps) => {
     const [selectedTerm, setSelectedTerm] = useState("Fall");
     const [selectedCourses, setSelectedCourse] = useState<string[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
+    const {user, isAuthenticated} = useAuthState();
 
-    const toggleSelected = (key: string) => {
-        setSelectedCourse(selectedCourses => {        
-            if (selectedCourses.includes(key)) {
-            return toggleList(key, selectedCourses);
-        }
-        const conflictingCourses =  selectedCourses.some(selectedKey => checkTimeConflict(courses[selectedKey], courses[key]));
-        return conflictingCourses ? selectedCourses : toggleList(key, selectedCourses);});
-    };
+    useEffect(() => {
+        setSelectedCourse([]);
+
+        if (!isAuthenticated || !user) return;
+        return onSnapshot(doc(firestore, `coursePlans`, user.uid), (snapshot) => {
+            setSelectedCourse(snapshot.data()?.selectedCourses || []);
+        });
+    }
+
+, [user?.uid, isAuthenticated]);
+
+
+  const toggleSelected = async (key: string) => {
+  if (!user || !isAuthenticated) return;
+
+  const isSelected = selectedCourses.includes(key);
+
+  if (!isSelected) {
+    const conflictingCourses = selectedCourses.some(
+      selectedKey =>
+        checkTimeConflict(courses[selectedKey], courses[key])
+    );
+
+    if (conflictingCourses) return;
+  }
+
+  try {
+    await saveSelectedCourses(user.uid, key, !isSelected);
+  } catch (error) {
+    console.error("failed to save courses: ", error);
+  }
+};
 
     return (
         <div>
