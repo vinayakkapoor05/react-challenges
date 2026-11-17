@@ -37,7 +37,6 @@ const Calendar = ({
   selectedTerm
 }: CalendarProps) => {
 
-  // Selected courses for the current term
   const meetings = selectedCourses
     .filter(id =>
       courses[id] &&
@@ -63,7 +62,6 @@ const Calendar = ({
       meeting.end > meeting.start
     );
 
-  // Calendar runs from at least 8 AM to 6 PM
   const startHour = Math.min(
     8,
     ...meetings.map(meeting =>
@@ -86,7 +84,6 @@ const Calendar = ({
   const calendarHeight =
     (endHour - startHour) * pixelsPerHour;
 
-  // Convert meeting times to exact pixel positions
   const getTop = (minutes: number): number =>
     (minutes - startHour * 60) *
     (pixelsPerHour / 60);
@@ -98,41 +95,39 @@ const Calendar = ({
     (end - start) * (pixelsPerHour / 60);
 
   return (
-    <div className="w-full">
-      <h2 className="text-lg font-semibold mb-4">
+    <div className="w-full min-w-0">
+      <h2 className="mb-4 text-base font-semibold text-slate-900">
         {selectedTerm} Weekly Schedule
       </h2>
 
       {meetings.length === 0 && (
-        <p className="text-gray-500 mb-4">
+        <p className="mb-4 text-sm text-slate-600">
           No courses selected for this term.
         </p>
       )}
 
-      <div className="overflow-x-auto border border-gray-200 rounded-lg">
+      <div className="w-full overflow-x-auto rounded-xl border border-slate-200 bg-white">
         <div className="min-w-[750px]">
 
-          {/* Weekday headers */}
           <div
-            className="grid border-b border-gray-200 bg-gray-50"
+            className="grid border-b border-slate-200 bg-slate-50"
             style={{
               gridTemplateColumns:
                 '70px repeat(5, minmax(0, 1fr))'
             }}
           >
-            <div className="p-3 border-r border-gray-200" />
+            <div className="border-r border-slate-200 p-3" />
 
             {weekdays.map(day => (
               <div
                 key={day.key}
-                className="text-center text-sm font-semibold p-3 border-r border-gray-200 last:border-r-0"
+                className="border-r border-slate-200 px-3 py-4 text-center text-sm font-semibold text-slate-700 last:border-r-0"
               >
                 {day.label}
               </div>
             ))}
           </div>
 
-          {/* Calendar body */}
           <div
             className="grid"
             style={{
@@ -140,15 +135,14 @@ const Calendar = ({
                 '70px repeat(5, minmax(0, 1fr))'
             }}
           >
-            {/* Time labels */}
             <div
-              className="relative border-r border-gray-200 bg-gray-50"
+              className="relative border-r border-slate-200 bg-slate-50"
               style={{ height: calendarHeight }}
             >
               {hours.map(hour => (
                 <div
                   key={hour}
-                  className="absolute right-2 text-xs text-gray-500"
+                  className="absolute right-3 text-xs font-medium tabular-nums text-slate-500"
                   style={{
                     top:
                       (hour - startHour) *
@@ -160,19 +154,17 @@ const Calendar = ({
               ))}
             </div>
 
-            {/* Day columns */}
             {weekdays.map(day => (
               <div
                 key={day.key}
-                className="relative border-r border-gray-200 last:border-r-0"
+                className="relative border-r border-slate-200 last:border-r-0"
                 style={{ height: calendarHeight }}
               >
 
-                {/* Horizontal hour lines */}
                 {hours.map(hour => (
                   <div
                     key={hour}
-                    className="absolute left-0 right-0 border-t border-gray-100 pointer-events-none"
+                    className="pointer-events-none absolute left-0 right-0 border-t border-slate-100"
                     style={{
                       top:
                         (hour - startHour) *
@@ -181,7 +173,6 @@ const Calendar = ({
                   />
                 ))}
 
-                {/* Selected course blocks */}
                 {meetings
                   .filter(meeting =>
                     meeting.day === day.key
@@ -189,7 +180,7 @@ const Calendar = ({
                   .map(meeting => (
                     <div
                       key={`${meeting.id}-${day.key}`}
-                      className="absolute left-1 right-1 bg-blue-100 border border-blue-400 rounded-md p-2 overflow-hidden"
+                      className="absolute left-1 right-1 overflow-hidden rounded-lg border border-blue-300 border-l-[3px] border-l-blue-600 bg-blue-50 p-2 shadow-sm"
                       style={{
                         top: getTop(meeting.start),
                         height: getHeight(
@@ -203,11 +194,11 @@ const Calendar = ({
                         ` (${meeting.course.meets})`
                       }
                     >
-                      <div className="font-bold text-sm text-blue-900">
+                      <div className="text-sm font-semibold leading-5 text-blue-950">
                         CS {meeting.course.number}
                       </div>
 
-                      <div className="text-xs text-blue-800">
+                      <div className="text-xs leading-4 text-blue-900">
                         {meeting.course.title}
                       </div>
                     </div>

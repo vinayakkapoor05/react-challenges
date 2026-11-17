@@ -72,7 +72,7 @@ const toggleSelected = async (key: string) => {
 };
     return (
         <div>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <TermSelector 
                 selected={selectedTerm}
                 setSelected={setSelectedTerm}
@@ -80,12 +80,12 @@ const toggleSelected = async (key: string) => {
                 />
               <button 
                 onClick={() => setModalOpen(true)}
-                    className="rounded-lg border-2 border-gray-400 px-4 py-2 font-bold"
+                    className="rounded-lg border border-blue-700 bg-blue-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:border-blue-800 hover:bg-blue-800"
                 >
                     Course Plan
                 </button>
             </div>
-            <div className="mt-4">
+            <div className="mt-6">
 
             <CourseList
                 courses={courses}
@@ -94,15 +94,15 @@ const toggleSelected = async (key: string) => {
                 toggleSelected={toggleSelected}
                 />
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-        <h2 className="text-lg font-bold mb-4">Course Plan</h2>
+        <h2 className="mb-5 pr-10 text-xl font-bold tracking-tight text-slate-900">Course Plan</h2>
 
-        <div className="flex gap-3 mb-4">
+        <div className="mb-6 flex w-fit max-w-full gap-1 rounded-xl border border-slate-200 bg-slate-100 p-1">
             <button
             onClick={() => setView("list")}
-            className={`px-4 py-2 rounded-lg ${
+            className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                 view === "list"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-100"
+                ? "bg-blue-700 text-white shadow-sm hover:bg-blue-800"
+                : "text-slate-600 hover:bg-white hover:text-slate-900"
             }`}
             >
             List View
@@ -110,10 +110,10 @@ const toggleSelected = async (key: string) => {
 
             <button
             onClick={() => setView("calendar")}
-            className={`px-4 py-2 rounded-lg ${
+            className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                 view === "calendar"
-                ? "bg-blue-500 text-white"
-                : "bg-gray-100"
+                ? "bg-blue-700 text-white shadow-sm hover:bg-blue-800"
+                : "text-slate-600 hover:bg-white hover:text-slate-900"
             }`}
             >
             Calendar View
@@ -123,21 +123,21 @@ const toggleSelected = async (key: string) => {
         {view === "list" ? (
             selectedCourses.length === 0 ? (
             <>
-                <p className="text-gray-600">No courses selected.</p>
-                <p className="text-gray-600">
+                <p className="text-sm font-medium leading-6 text-slate-700">No courses selected.</p>
+                <p className="text-sm leading-6 text-slate-600">
                 Click on a course to add it to your plan.
                 </p>
             </>
             ) : (
-            <ul>
+            <ul className="space-y-3">
                 {selectedCourses
                 .filter(id => courses[id])
                 .map(id => (
-                    <li key={id} className="text-blue-500 mb-2">
+                    <li key={id} className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-sm font-semibold leading-relaxed text-slate-900">
                     {courses[id].term} CS {courses[id].number}:{" "}
                     {courses[id].title}
 
-                    <div className="text-gray-600 text-sm">
+                    <div className="mt-1 text-sm font-normal text-slate-600">
                         {courses[id].meets}
                     </div>
                     </li>

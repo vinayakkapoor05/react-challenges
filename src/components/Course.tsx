@@ -20,36 +20,36 @@ const Course = ({
 
   return (
 <div
-  className={`flex flex-col h-full w-full p-5 rounded-xl border-2 bg-white ${
-    selected ? "border-blue-500" : "border-gray-200"
+  className={`flex h-full w-full flex-col rounded-xl border p-5 shadow-sm transition-colors ${
+    selected ? "border-blue-600 bg-blue-50 ring-1 ring-blue-600" : "border-slate-200 bg-white hover:border-slate-400"
   }`}
 >
     <button
   type="button"
   onClick={onClick}
   aria-pressed={selected}
-  className="flex flex-col flex-grow w-full text-left cursor-pointer"
+  className="flex w-full flex-grow flex-col rounded-lg text-left"
 >
     <div className="flex items-center justify-between w-full mb-3">
-      <div className="text-lg font-bold text-gray-800">
+      <div className="pr-3 text-base font-semibold text-slate-900">
         {term} CS {number}
       </div>
 
-      <div className={`flex items-center justify-center w-6 h-6 rounded-full border-2 ${
+      <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 ${
         selected
-          ? "bg-blue-500 border-blue-500 text-white"
-          : "border-gray-300"
+          ? "bg-blue-700 border-blue-700 text-white"
+          : "border-slate-300 bg-white"
       }`}>
         {selected && <span className="text-sm">✓</span>}
       </div>
     </div>
 
-    <div className="flex-grow text-sm text-gray-600 leading-relaxed">
+    <div className="flex-grow text-sm leading-relaxed text-slate-700">
       {title}
     </div>
 
-   <div className="flex items-center justify-between mt-5 pt-3 border-t border-gray-200 w-full">
-  <span className="text-sm text-gray-500">
+   <div className="mt-5 flex w-full items-center justify-between border-t border-slate-200 pt-3">
+  <span className="text-sm leading-relaxed text-slate-600">
    {meets}
   </span>
 {profile.isAdmin && (
@@ -58,7 +58,7 @@ const Course = ({
     params={{ id }}
     aria-label={`Edit CS ${number}`}
     title="Edit course"
-    className="ml-2 rounded-lg p-2 text-gray-400"
+    className="ml-2 shrink-0 rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-blue-700"
   >
     <Pencil size={18} />
   </Link>

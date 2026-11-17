@@ -6,19 +6,19 @@ export const Banner = () => {
 
   return (
     <>
-      <div className="p-2 flex gap-4">
-        <span className="text-xl text-blue-400">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 sm:px-5">
+        <span className="min-w-0 break-words text-sm font-medium text-slate-700">
           Welcome, { user ? user.displayName : 'guest' }!
         </span>
         <span className="ml-auto">
           {
             user
-              ? <button onClick={signOut}>Sign Out</button>
-              : <button onClick={signInWithGoogle}>Sign In</button>
+              ? <button className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50" onClick={signOut}>Sign Out</button>
+              : <button className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:bg-slate-50" onClick={signInWithGoogle}>Sign In</button>
           }
         </span>
       </div>
-      <hr className="my-4" />
+      <hr className="my-6 border-slate-200 sm:my-8" />
     </>
   );
 };
