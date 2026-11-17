@@ -2,7 +2,7 @@ const convertTimeToMinutes = (time: string): number => {
     const [hours, minutes] = time.split(':').map(Number);
     return hours * 60 + minutes;
 }
-const parseMeetingTime = (meetingTime: string): { days: string[], start: number, end: number } => {
+export const parseMeetingTime = (meetingTime: string): { days: string[], start: number, end: number } => {
     const [days, times] = meetingTime.split(' ');
     const [start, end] = times.split('-');
     return {

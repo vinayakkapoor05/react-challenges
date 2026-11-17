@@ -3,6 +3,8 @@ import TermSelector from "./TermSelector";
 import CourseList from "./CourseList";
 import Modal from "./Modal";
 import { doc, onSnapshot } from "firebase/firestore";
+import Calendar from "./Calendar";
+
 import {
   firestore,
   useAuthState,
@@ -29,7 +31,7 @@ const TermPage = ({ courses }: TermPageProps) => {
     const [selectedCourses, setSelectedCourse] = useState<string[]>([]);
     const [modalOpen, setModalOpen] = useState(false);
     const {user, isAuthenticated} = useAuthState();
-
+    const [view, setView] = useState<"list" | "calendar">("list");
     useEffect(() => {
         setSelectedCourse([]);
 
@@ -91,26 +93,65 @@ const toggleSelected = async (key: string) => {
                 selectedCourses={selectedCourses}
                 toggleSelected={toggleSelected}
                 />
-                <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-                    <h2 className="text-lg font-bold mb-4">Course Plan</h2> 
-                    {selectedCourses.length === 0 ? (
-                        <>
-                            <p className="text-gray-600">No courses selected.</p>
-                            <p className="text-gray-600">Click on a course to add it to your plan.</p>
-                        </>
-                    ) : (
-                        <ul>
-                            {selectedCourses.map((course) => (
-                                <li key={course} className="text-blue-500 mb-2">
-                                    {courses[course].term + " CS " + courses[course].number + ": " + courses[course].title}
-                                    <div className="text-gray-600 text-sm" >
-                                    {courses[course].meets}
-                                </div>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </Modal>
+        <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+        <h2 className="text-lg font-bold mb-4">Course Plan</h2>
+
+        <div className="flex gap-3 mb-4">
+            <button
+            onClick={() => setView("list")}
+            className={`px-4 py-2 rounded-lg ${
+                view === "list"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-100"
+            }`}
+            >
+            List View
+            </button>
+
+            <button
+            onClick={() => setView("calendar")}
+            className={`px-4 py-2 rounded-lg ${
+                view === "calendar"
+                ? "bg-blue-500 text-white"
+                : "bg-gray-100"
+            }`}
+            >
+            Calendar View
+            </button>
+        </div>
+
+        {view === "list" ? (
+            selectedCourses.length === 0 ? (
+            <>
+                <p className="text-gray-600">No courses selected.</p>
+                <p className="text-gray-600">
+                Click on a course to add it to your plan.
+                </p>
+            </>
+            ) : (
+            <ul>
+                {selectedCourses
+                .filter(id => courses[id])
+                .map(id => (
+                    <li key={id} className="text-blue-500 mb-2">
+                    {courses[id].term} CS {courses[id].number}:{" "}
+                    {courses[id].title}
+
+                    <div className="text-gray-600 text-sm">
+                        {courses[id].meets}
+                    </div>
+                    </li>
+                ))}
+            </ul>
+            )
+        ) : (
+            <Calendar
+            courses={courses}
+            selectedCourses={selectedCourses}
+            selectedTerm={selectedTerm}
+            />
+        )}
+        </Modal>
             </div>
         </div>
     );
