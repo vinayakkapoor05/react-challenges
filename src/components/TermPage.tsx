@@ -4,6 +4,7 @@ import CourseList from "./CourseList";
 import Modal from "./Modal";
 import { doc, onSnapshot } from "firebase/firestore";
 import Calendar from "./Calendar";
+import { downloadICS } from "../utilities/export-calendar";
 
 import {
   firestore,
@@ -33,6 +34,18 @@ const TermPage = ({ courses }: TermPageProps) => {
     const {user, isAuthenticated} = useAuthState();
     const [view, setView] = useState<"list" | "calendar">("list");
     const [searchQuery, setSearchQuery] = useState("");
+    const handleExport = () => {
+    const coursesToExport = selectedCourses
+        .filter(id => courses[id]?.term === selectedTerm)
+        .map(id => courses[id]);
+
+    try {
+        downloadICS(coursesToExport, selectedTerm);
+    } catch (error) {
+        console.error("calendar export failed:", error);
+        alert("no valid courses available to export.");
+    }
+    };
     useEffect(() => {
         setSelectedCourse([]);
 
@@ -105,9 +118,10 @@ const toggleSelected = async (key: string) => {
                 />
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
         <h2 className="mb-5 pr-10 text-xl font-bold tracking-tight text-ink">Course Plan</h2>
-
-        <div className="mb-6 flex w-fit max-w-full gap-1 rounded-xl border border-divider bg-raised p-1">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex w-fit max-w-full gap-1 rounded-xl border border-divider bg-raised p-1">
             <button
+            type="button"
             onClick={() => setView("list")}
             className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                 view === "list"
@@ -119,6 +133,7 @@ const toggleSelected = async (key: string) => {
             </button>
 
             <button
+            type="button"
             onClick={() => setView("calendar")}
             className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                 view === "calendar"
@@ -128,6 +143,18 @@ const toggleSelected = async (key: string) => {
             >
             Calendar View
             </button>
+        </div>
+
+        <button
+            type="button"
+            onClick={handleExport}
+            disabled={!selectedCourses.some(
+            id => courses[id]?.term === selectedTerm
+            )}
+            className="rounded-lg border border-accent bg-accent px-4 py-2.5 text-sm font-semibold text-on-accent shadow-sm enabled:hover:border-accent-hover enabled:hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+        >
+            Export Calendar (.ics)
+        </button>
         </div>
 
         {view === "list" ? (
