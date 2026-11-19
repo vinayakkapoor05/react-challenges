@@ -10,15 +10,15 @@ export const Banner = () => {
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 sm:px-5">
-        <span className="min-w-0 break-words text-sm font-medium text-slate-700 dark:text-slate-200">
+      <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-divider bg-panel px-4 py-3 sm:px-5">
+        <span className="min-w-0 break-words text-sm font-medium text-ink">
           Welcome, { user ? user.displayName : 'guest' }!
         </span>
         <span className="ml-auto">
           {
             user
-              ? <button className="rounded-lg border border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-900 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" onClick={signOut}>Sign Out</button>
-              : <button className="rounded-lg border border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-900 px-4 py-2 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800" onClick={signInWithGoogle}>Sign In</button>
+              ? <button className="rounded-lg border border-control bg-panel px-4 py-2 text-sm font-semibold text-ink hover:border-muted hover:bg-raised" onClick={signOut}>Sign Out</button>
+              : <button className="rounded-lg border border-control bg-panel px-4 py-2 text-sm font-semibold text-ink hover:border-muted hover:bg-raised" onClick={signInWithGoogle}>Sign In</button>
           }
         </span>
         <button
@@ -31,7 +31,7 @@ export const Banner = () => {
       title={`Switch to ${
         theme === 'dark' ? 'light' : 'dark'
       } mode`}
-      className="theme-toggle inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold shadow-sm"
+      className="theme-toggle border-control bg-panel text-ink hover:border-muted hover:bg-raised inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm font-semibold shadow-sm"
     >
       {theme === 'dark' ? (
         <Sun aria-hidden="true" size={18} />
@@ -46,7 +46,7 @@ export const Banner = () => {
     </button>
 
       </div>
-      <hr className="my-6 border-slate-200 dark:border-slate-700 sm:my-8" />
+      <hr className="my-6 border-divider sm:my-8" />
     </>
   );
 };

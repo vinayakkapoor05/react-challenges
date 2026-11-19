@@ -81,7 +81,7 @@ const toggleSelected = async (key: string) => {
                 />
               <button 
                 onClick={() => setModalOpen(true)}
-                    className="rounded-lg border border-blue-700 dark:border-blue-600 bg-blue-700 dark:bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:border-blue-800 dark:hover:border-blue-700 hover:bg-blue-800 dark:hover:bg-blue-700"
+                    className="rounded-lg border border-accent bg-accent px-4 py-2.5 text-sm font-semibold text-on-accent shadow-sm hover:border-accent-hover hover:bg-accent-hover"
                 >
                     Course Plan
                 </button>
@@ -93,7 +93,7 @@ const toggleSelected = async (key: string) => {
                 placeholder="Search courses by number or title..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-lg border border-slate-300 dark:border-slate-500 dark:bg-slate-900 dark:placeholder:text-slate-400 px-4 py-2.5"
+                className="w-full rounded-lg border border-control bg-panel placeholder:text-muted px-4 py-2.5"
                 />
             </div>
             <CourseList
@@ -104,15 +104,15 @@ const toggleSelected = async (key: string) => {
                 searchQuery={searchQuery}
                 />
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
-        <h2 className="mb-5 pr-10 text-xl font-bold tracking-tight text-slate-900 dark:text-slate-100">Course Plan</h2>
+        <h2 className="mb-5 pr-10 text-xl font-bold tracking-tight text-ink">Course Plan</h2>
 
-        <div className="mb-6 flex w-fit max-w-full gap-1 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 p-1">
+        <div className="mb-6 flex w-fit max-w-full gap-1 rounded-xl border border-divider bg-raised p-1">
             <button
             onClick={() => setView("list")}
             className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                 view === "list"
-                ? "bg-blue-700 dark:bg-blue-600 text-white shadow-sm hover:bg-blue-800 dark:hover:bg-blue-700"
-                : "text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-accent text-on-accent shadow-sm hover:bg-accent-hover"
+                : "text-muted hover:bg-panel hover:text-ink"
             }`}
             >
             List View
@@ -122,8 +122,8 @@ const toggleSelected = async (key: string) => {
             onClick={() => setView("calendar")}
             className={`rounded-lg px-4 py-2 text-sm font-semibold ${
                 view === "calendar"
-                ? "bg-blue-700 dark:bg-blue-600 text-white shadow-sm hover:bg-blue-800 dark:hover:bg-blue-700"
-                : "text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white"
+                ? "bg-accent text-on-accent shadow-sm hover:bg-accent-hover"
+                : "text-muted hover:bg-panel hover:text-ink"
             }`}
             >
             Calendar View
@@ -133,8 +133,8 @@ const toggleSelected = async (key: string) => {
         {view === "list" ? (
             selectedCourses.length === 0 ? (
             <>
-                <p className="text-sm font-medium leading-6 text-slate-700 dark:text-slate-200">No courses selected.</p>
-                <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
+                <p className="text-sm font-medium leading-6 text-ink">No courses selected.</p>
+                <p className="text-sm leading-6 text-muted">
                 Click on a course to add it to your plan.
                 </p>
             </>
@@ -143,11 +143,11 @@ const toggleSelected = async (key: string) => {
                 {selectedCourses
                 .filter(id => courses[id])
                 .map(id => (
-                    <li key={id} className="rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-4 text-sm font-semibold leading-relaxed text-slate-900 dark:text-slate-100">
+                    <li key={id} className="rounded-xl border border-divider bg-raised p-4 text-sm font-semibold leading-relaxed text-ink">
                     {courses[id].term} CS {courses[id].number}:{" "}
                     {courses[id].title}
 
-                    <div className="mt-1 text-sm font-normal text-slate-600 dark:text-slate-300">
+                    <div className="mt-1 text-sm font-normal text-muted">
                         {courses[id].meets}
                     </div>
                     </li>

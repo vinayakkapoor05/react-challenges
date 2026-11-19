@@ -1,14 +1,47 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+/* Kanagawa Lotus */
+@theme {
+  --color-canvas: #f2ecbc;
+  --color-panel: #e7dba0;
+  --color-raised: #dcd5ac;
+  --color-divider: #c9cbd1;
+  --color-control: #716e61;
+  --color-ink: #545464;
+  --color-muted: #625e5a;
+  --color-accent: #4d699b;
+  --color-accent-hover: #4d4b6c;
+  --color-on-accent: #f2ecbc;
+  --color-selection: #c7d7e0;
+  --color-error: #99332b;
+  --color-scrim: #43436c;
+}
 
 @layer base {
-  html.dark {
+  :root {
+    color-scheme: light;
+  }
+
+  /* Kanagawa Dragon */
+  :root.dark {
     color-scheme: dark;
+    --color-canvas: #181616;
+    --color-panel: #1d1c19;
+    --color-raised: #282727;
+    --color-divider: #393836;
+    --color-control: #737c73;
+    --color-ink: #c5c9c5;
+    --color-muted: #a6a69c;
+    --color-accent: #8ba4b0;
+    --color-accent-hover: #8ea4a2;
+    --color-on-accent: #0d0c0c;
+    --color-selection: #2d4f67;
+    --color-error: #c4746e;
+    --color-scrim: #0d0c0c;
   }
 
   body {
-    @apply m-0 min-w-80 bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+    @apply m-0 min-w-80 bg-canvas font-sans text-ink antialiased;
   }
 
   button, a, input {
@@ -16,7 +49,7 @@
   }
 
   button:focus-visible, a:focus-visible, input:focus-visible {
-    @apply outline-2 outline-offset-4 outline-blue-600 dark:outline-blue-400;
+    @apply outline-2 outline-offset-4 outline-accent;
   }
 
   button:not(:disabled) {

@@ -12,15 +12,15 @@ const Modal = ({
 }: PropsWithChildren<ModalProps>) => (
   !isOpen ? null : (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/50 dark:bg-black/70 p-3 backdrop-blur-sm sm:p-6"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-scrim/75 p-3 backdrop-blur-sm sm:p-6"
       onClick={onClose}
     >
       <div
-        className="relative max-h-[90dvh] w-full min-w-0 max-w-5xl overflow-y-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4 shadow-xl sm:p-6"
+        className="relative max-h-[90dvh] w-full min-w-0 max-w-5xl overflow-y-auto rounded-2xl border border-divider bg-panel p-4 shadow-xl sm:p-6"
         onClick={e => e.stopPropagation()}
       >
         <button
-          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white"
+          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-lg text-muted hover:bg-raised hover:text-ink"
           onClick={onClose}
         >
           ✕
