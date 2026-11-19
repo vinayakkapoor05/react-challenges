@@ -6,6 +6,7 @@ interface CourseData {
   number: string;
   meets: string;
   title: string;
+  professor?: string;
 }
 
 interface CalendarProps {
@@ -191,11 +192,13 @@ const Calendar = ({
                       title={
                         `CS ${meeting.course.number}: ` +
                         meeting.course.title +
+                        (meeting.course.professor ? ` —  ${meeting.course.professor}` : '') +
                         ` (${meeting.course.meets})`
                       }
                     >
-                      <div className="text-sm font-semibold leading-5 text-ink">
+                      <div className="truncate text-sm font-semibold leading-5 text-ink">
                         CS {meeting.course.number}
+                        {meeting.course.professor && <span className="font-normal"> · {meeting.course.professor}</span>}
                       </div>
 
                       <div className="text-xs leading-4 text-ink">

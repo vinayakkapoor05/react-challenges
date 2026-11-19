@@ -9,12 +9,13 @@ interface CourseProps {
   number: string;
   meets: string;
   title: string;
+  professor?: string;
   selected: boolean;
   onClick: () => void;
 }
 
 const Course = ({
-  id, term, number, title, meets, selected, onClick
+  id, term, number, title, professor, meets, selected, onClick
 }: CourseProps) => {
   const[profile] = useProfile();
 
@@ -46,6 +47,7 @@ const Course = ({
 
     <div className="flex-grow text-sm leading-relaxed text-ink">
       {title}
+      {professor && <div className="mt-1 text-muted">{professor}</div>}
     </div>
 
    <div className="mt-5 flex w-full items-center justify-between border-t border-divider pt-3">

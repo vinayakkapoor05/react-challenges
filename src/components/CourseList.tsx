@@ -8,6 +8,7 @@ interface CourseListProps {
         number: string;
         meets: string;
         title: string;
+        professor?: string;
         };
         };
         selectedTerm: string;
@@ -24,7 +25,8 @@ interface CourseListProps {
             course.term === selectedTerm &&
             (
             course.number.toLowerCase().includes(query) ||
-            course.title.toLowerCase().includes(query)
+            course.title.toLowerCase().includes(query) ||
+            course.professor?.toLowerCase().includes(query)
             )
         )
         .sort(([, a], [, b]) =>
@@ -48,6 +50,7 @@ interface CourseListProps {
                     number={course.number}
                     meets={course.meets}
                     title={course.title}
+                    professor={course.professor}
                     selected={selectedCourses.includes(key)}
                     onClick={() => toggleSelected(key)} 
                     />

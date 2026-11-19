@@ -23,6 +23,7 @@ interface TermPageProps {
             number: string;
             meets: string;
             title: string;
+            professor?: string;
         };
     };
 }
@@ -103,7 +104,7 @@ const toggleSelected = async (key: string) => {
             <div className="mb-4 flex items-center justify-between gap-4">
             <input
                 type="search"
-                placeholder="Search courses by number or title..."
+                placeholder="Search by course number, title, or professor..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-lg border border-control bg-panel placeholder:text-muted px-4 py-2.5"
@@ -173,6 +174,9 @@ const toggleSelected = async (key: string) => {
                     <li key={id} className="rounded-xl border border-divider bg-raised p-4 text-sm font-semibold leading-relaxed text-ink">
                     {courses[id].term} CS {courses[id].number}:{" "}
                     {courses[id].title}
+                    {courses[id].professor && (
+                        <div className="mt-1 font-normal text-muted"> {courses[id].professor}</div>
+                    )}
 
                     <div className="mt-1 text-sm font-normal text-muted">
                         {courses[id].meets}

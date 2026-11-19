@@ -23,7 +23,7 @@ interface Schedule {
 
   const App = () => 
     {
-      const [data, isLoading, error] = useDataQuery('courses/CS-2018-2019');
+      const [data, isLoading, error] = useDataQuery('courses/CS-2026-2027');
       const { id } = useParams({ strict: false });
       // const {isAuthenticated} = useAuthState();
 

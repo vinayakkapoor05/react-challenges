@@ -14,9 +14,9 @@ interface QuarterDates {
 }
 
 const quarterDates: Record<string, QuarterDates> = {
-  Fall: { start: "2018-09-27", end: "2018-12-08" },
-  Winter: { start: "2019-01-07", end: "2019-03-16" },
-  Spring: { start: "2019-04-01", end: "2019-06-08" }
+  Fall: { start: "2026-09-23", end: "2026-12-05" },
+  Winter: { start: "2027-01-04", end: "2027-03-13" },
+  Spring: { start: "2027-03-30", end: "2027-06-05" }
 };
 
 const dayNumbers: Record<string, number> = {

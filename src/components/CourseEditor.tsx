@@ -27,7 +27,7 @@ const CourseEditor = ({course, courseId}: CourseEditorProps ) => {
         if (!isValid || !isDirty || isSubmitting) { 
           return;
         }
-        await updateDoc(doc(firestore, 'courses', 'CS-2018-2019'), {
+        await updateDoc(doc(firestore, 'courses', 'CS-2026-2027'), {
           [`courses.${courseId}`]: data,
         });
         await navigate({ to: '/' });
