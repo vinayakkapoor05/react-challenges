@@ -32,6 +32,7 @@ const TermPage = ({ courses }: TermPageProps) => {
     const [modalOpen, setModalOpen] = useState(false);
     const {user, isAuthenticated} = useAuthState();
     const [view, setView] = useState<"list" | "calendar">("list");
+    const [searchQuery, setSearchQuery] = useState("");
     useEffect(() => {
         setSelectedCourse([]);
 
@@ -86,12 +87,21 @@ const toggleSelected = async (key: string) => {
                 </button>
             </div>
             <div className="mt-6">
-
+            <div className="mb-4 flex items-center justify-between gap-4">
+            <input
+                type="search"
+                placeholder="Search courses by number or title..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full rounded-lg border border-slate-300 px-4 py-2.5"
+                />
+            </div>
             <CourseList
                 courses={courses}
                 selectedTerm={selectedTerm}
                 selectedCourses={selectedCourses}
                 toggleSelected={toggleSelected}
+                searchQuery={searchQuery}
                 />
         <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
         <h2 className="mb-5 pr-10 text-xl font-bold tracking-tight text-slate-900">Course Plan</h2>
