@@ -96,32 +96,32 @@ const Calendar = ({
 
   return (
     <div className="w-full min-w-0">
-      <h2 className="mb-4 text-base font-semibold text-slate-900">
+      <h2 className="mb-4 text-base font-semibold text-slate-900 dark:text-slate-100">
         {selectedTerm} Weekly Schedule
       </h2>
 
       {meetings.length === 0 && (
-        <p className="mb-4 text-sm text-slate-600">
+        <p className="mb-4 text-sm text-slate-600 dark:text-slate-300">
           No courses selected for this term.
         </p>
       )}
 
-      <div className="w-full overflow-x-auto rounded-xl border border-slate-200 bg-white">
+      <div className="w-full overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900">
         <div className="min-w-[750px]">
 
           <div
-            className="grid border-b border-slate-200 bg-slate-50"
+            className="grid border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
             style={{
               gridTemplateColumns:
                 '70px repeat(5, minmax(0, 1fr))'
             }}
           >
-            <div className="border-r border-slate-200 p-3" />
+            <div className="border-r border-slate-200 dark:border-slate-700 p-3" />
 
             {weekdays.map(day => (
               <div
                 key={day.key}
-                className="border-r border-slate-200 px-3 py-4 text-center text-sm font-semibold text-slate-700 last:border-r-0"
+                className="border-r border-slate-200 dark:border-slate-700 px-3 py-4 text-center text-sm font-semibold text-slate-700 dark:text-slate-200 last:border-r-0"
               >
                 {day.label}
               </div>
@@ -136,13 +136,13 @@ const Calendar = ({
             }}
           >
             <div
-              className="relative border-r border-slate-200 bg-slate-50"
+              className="relative border-r border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800"
               style={{ height: calendarHeight }}
             >
               {hours.map(hour => (
                 <div
                   key={hour}
-                  className="absolute right-3 text-xs font-medium tabular-nums text-slate-500"
+                  className="absolute right-3 text-xs font-medium tabular-nums text-slate-500 dark:text-slate-400"
                   style={{
                     top:
                       (hour - startHour) *
@@ -157,14 +157,14 @@ const Calendar = ({
             {weekdays.map(day => (
               <div
                 key={day.key}
-                className="relative border-r border-slate-200 last:border-r-0"
+                className="relative border-r border-slate-200 dark:border-slate-700 last:border-r-0"
                 style={{ height: calendarHeight }}
               >
 
                 {hours.map(hour => (
                   <div
                     key={hour}
-                    className="pointer-events-none absolute left-0 right-0 border-t border-slate-100"
+                    className="pointer-events-none absolute left-0 right-0 border-t border-slate-100 dark:border-slate-800"
                     style={{
                       top:
                         (hour - startHour) *
@@ -180,7 +180,7 @@ const Calendar = ({
                   .map(meeting => (
                     <div
                       key={`${meeting.id}-${day.key}`}
-                      className="absolute left-1 right-1 overflow-hidden rounded-lg border border-blue-300 border-l-[3px] border-l-blue-600 bg-blue-50 p-2 shadow-sm"
+                      className="absolute left-1 right-1 overflow-hidden rounded-lg border border-blue-300 dark:border-blue-700 border-l-[3px] border-l-blue-600 dark:border-l-blue-400 bg-blue-50 dark:bg-blue-950 p-2 shadow-sm"
                       style={{
                         top: getTop(meeting.start),
                         height: getHeight(
@@ -194,11 +194,11 @@ const Calendar = ({
                         ` (${meeting.course.meets})`
                       }
                     >
-                      <div className="text-sm font-semibold leading-5 text-blue-950">
+                      <div className="text-sm font-semibold leading-5 text-blue-950 dark:text-blue-100">
                         CS {meeting.course.number}
                       </div>
 
-                      <div className="text-xs leading-4 text-blue-900">
+                      <div className="text-xs leading-4 text-blue-900 dark:text-blue-200">
                         {meeting.course.title}
                       </div>
                     </div>

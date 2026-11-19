@@ -33,7 +33,7 @@ interface CourseListProps {
         return (
             <>
             {filteredCourses.length === 0 && (
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-slate-600 dark:text-slate-300">
                     No courses match your search.
                 </p>
                 )}

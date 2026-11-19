@@ -21,7 +21,7 @@ const Course = ({
   return (
 <div
   className={`flex h-full w-full flex-col rounded-xl border p-5 shadow-sm transition-colors ${
-    selected ? "border-blue-600 bg-blue-50 ring-1 ring-blue-600" : "border-slate-200 bg-white hover:border-slate-400"
+    selected ? "border-blue-600 dark:border-blue-400 bg-blue-50 dark:bg-blue-950 ring-1 ring-blue-600 dark:ring-blue-400" : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:border-slate-400 dark:hover:border-slate-400"
   }`}
 >
     <button
@@ -31,25 +31,25 @@ const Course = ({
   className="flex w-full flex-grow flex-col rounded-lg text-left"
 >
     <div className="flex items-center justify-between w-full mb-3">
-      <div className="pr-3 text-base font-semibold text-slate-900">
+      <div className="pr-3 text-base font-semibold text-slate-900 dark:text-slate-100">
         {term} CS {number}
       </div>
 
       <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 ${
         selected
-          ? "bg-blue-700 border-blue-700 text-white"
-          : "border-slate-300 bg-white"
+          ? "bg-blue-700 dark:bg-blue-600 border-blue-700 dark:border-blue-600 text-white"
+          : "border-slate-300 dark:border-slate-500 bg-white dark:bg-slate-900"
       }`}>
         {selected && <span className="text-sm">✓</span>}
       </div>
     </div>
 
-    <div className="flex-grow text-sm leading-relaxed text-slate-700">
+    <div className="flex-grow text-sm leading-relaxed text-slate-700 dark:text-slate-200">
       {title}
     </div>
 
-   <div className="mt-5 flex w-full items-center justify-between border-t border-slate-200 pt-3">
-  <span className="text-sm leading-relaxed text-slate-600">
+   <div className="mt-5 flex w-full items-center justify-between border-t border-slate-200 dark:border-slate-700 pt-3">
+  <span className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
    {meets}
   </span>
 {profile.isAdmin && (
@@ -58,7 +58,7 @@ const Course = ({
     params={{ id }}
     aria-label={`Edit CS ${number}`}
     title="Edit course"
-    className="ml-2 shrink-0 rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-blue-700"
+    className="ml-2 shrink-0 rounded-lg p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700 hover:text-blue-700 dark:hover:text-blue-300"
   >
     <Pencil size={18} />
   </Link>
